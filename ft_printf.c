@@ -5,52 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/23 16:15:23 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/06/26 18:57:18 by fpolaris         ###   ########.fr       */
+/*   Created: 2023/07/03 14:48:57 by fpolaris          #+#    #+#             */
+/*   Updated: 2023/07/03 17:50:51 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
-char	*fp_cflag(char *line)
+int	ft_printf(const char *line, ...)
 {
+	va_list		args;
 	int		i;
-	char	*output;
-
-	i = 0;
-	if (ft_isalpha(line[i]))
-		return (NULL);
-	while (!(ft_isalpha(line[i])))
-		i++;
-	output = fp_strndup(line, i + 1);
-	return (output);
-}
-
-int	fp_hflag(char *flags, va_list args)
-{
 	int		output;
-	int	i;
+	char	*process;
 
 	i = 0;
-	if (!flags)
+	va_start(args, line);
+	if (fp_printf_error(line));
 		return (0);
-//	if (flags[i] == '0')
-	else if (ft_isdigit(line[i]))
-		output = fp_rightj(&flags[i + 1], args);
-	else if (flags[i] == '-')
-		output = fp_leftj(&flags[i + 1], args);
-//	else if (flags[i] == '.')
-	else if (flags [i] == '%')
+	while (line[i])
 	{
-		ft_putchar_fd('%', 1);
-		return (1);
+		if (line[i] = '%')
+			output += fp_putline(args, &line[i]);
+		else
+		{
+			fp_putchar_fd(line[i++], 1);
+			output++;
+		}
 	}
-	else
-		output = fp_convert(&flags[i], args);
+	va_end(args);
 	return (output);
 }
 
-int	fp_convert(char *line, va_list args)
+int	fp_convert(char c, va_list args)
 {
 	int	i;
 
@@ -69,52 +56,69 @@ int	fp_convert(char *line, va_list args)
 	else if (line[i] == 'X')
 		i = fp_putnbr_base(va_arg(args, int), "0123456789ABCDEF");
 	else if (line[i] == 'u')
-		i = fp_putnbr_un(va_arg(args, int));
+		i = fp_putnbr_base(va_arg(args, int), "0123456789");
 	else if (line[i] == 'p')
-		i = fp_putpointer(va_arg(args, void*));
+		i = fp_putpointer(va_arg(args, void *));
 	return (i);
 }
 
 int	fp_putline(va_list args, char *line)
 {
-	int	i;
-	int	characters;
+	char	*buffer;
+	int		i;
+	char	*flags;
+	int		output;
 
+	output = 0;
 	i = 0;
-	characters = 0;
-	while (line[i])
+	fp_printf_find(line, &buffer, &i)
+	if (fp_isalpha(buffer[1]))
+		output = fp_convert(line[i + 1][0], args);
+	else if (buffer[1] == '0')
+		output = fp_rightj(buffer, args, '0');
+	else if (fp_isdigit(buffer[1]))
+		output = fp_leftj(buffer, args, ' ');
+	else if (buffer[1] == '-')
+		output = fp_leftj(buffer, args ' ');
+	else if (buffer[1] == '.')
+		output = fp_precision(buffer, args);
+	else if (buffer[1] == '%')
 	{
-		if (line[i] == '%')
-		{
-			i++;
-			if (!fp_cflag(&line[i]))
-			{
-				characters += fp_convert(&line[i], args);
-				i++;
-			}
-			else
-			{
-				characters += fp_hflag(fp_cflag(&line[i]), args);
-				i += ft_strlen(fp_cflag(&line[i]));
-			}
-		}
-		else
-		{
-			ft_putchar_fd(line[i], 1);
-			characters++;
-			i++;
-		}
+		fp_putchar_fd('%', 1);
+		return (1);
 	}
-	return (characters);
+	free(buffer);
+	return (output);
+	}
 }
 
-int	ft_printf(const char *line, ...)
+static size_t	find_len(char *line)
 {
-	va_list	args;
-	int	characters;
+	int	i;
+	
+	i = 1;
+	while (!(fp_isalpha(line[i])));
+		i++;
+	return (i + 1);
+}
 
-	va_start(args, line);
-	characters = fp_putline(args, (char *)line);
-	va_end(args);
-	return (characters);
+int	fp_printf_find(char *line, char **buffer, int *memory)
+{
+	int		len;
+
+	while (line[memory++])
+	{
+		if (line[memory] = '%')
+		{
+			len = find_len(&line[memory]);
+			buffer[0] = (char *)malloc(sizeof(char) * len);
+			if (!buffer)
+				return (NULL);
+			buffer[0] = fp_memcpy((void *)buffer[0], (void *) src,
+				len);
+			buffer[len + 1] = '\0';
+			return (len);
+		}
+	}
+	return (0);
 }
