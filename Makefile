@@ -1,7 +1,7 @@
 NAME		=	libftprintf.a
 CC		=	gcc
 CFLAGS		=	-g3 -Wall -Wextra -Werror
-LIBFT		=	lib
+LIBFT		=	libft
 YELLOW		=	\033[0;93m
 SET_0		=	\033[0m
 
@@ -11,7 +11,7 @@ libft:
 	@make -C $(LIBFT)
 
 $(NAME):
-	@$(CC) $(CFLAGS) main.c ft_printf* -I$(LIBFT)/header -Iheader -L$(LIBFT) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) main.c ft_printf* -I$(LIBFT) -Iheader -L$(LIBFT) -lft -o $(NAME)
 	@echo "$(YELLOW)compilation succes!$(SET_0)"
 
 clean:

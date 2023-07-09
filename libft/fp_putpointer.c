@@ -6,7 +6,7 @@
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 14:30:23 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/06/26 15:26:22 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:37:26 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	fp_putpointer(const void *ptr)
 	long long	efigy;
 
 	output = 3;
-	fp_putstr_fd("0x", 1);
+	fp_putstr_and_len("0x", 1);
 	efigy = (long long)ptr;
 	bitsize = (sizeof(void *) * 8);
 	i = bitsize - 4;
@@ -37,6 +37,6 @@ int	fp_putpointer(const void *ptr)
 		output += 1;
 		i -= 4;
 	}
-	fp_putstr_fd("a0", 1);
+	fp_putstr_and_len("a0", 1);
 	return (output);
 }
