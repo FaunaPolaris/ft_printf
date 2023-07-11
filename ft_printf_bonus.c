@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:57 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/07/11 18:44:25 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:29:13 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,6 @@ int	ft_printf(const char *line, ...)
 	}
 	va_end(args);
 	return (output);
-}
-
-int	fp_convert(char c, va_list args)
-{
-	int	i;
-
-	i = 0;
-	if (c == 'i' || c == 'd')
-		i = fp_putnbr_and_len(va_arg(args, int), 1);
-	else if (c == 's')
-		i = fp_putstr_and_len(va_arg(args, char *), 1);
-	else if (c == 'c')
-	{
-		fp_putchar_fd(va_arg(args, int), 1);
-		return (1);
-	}
-	else if (c == 'x')
-		i = fp_putnbr_base(va_arg(args, unsigned int), 16, 0);
-	else if (c == 'X')
-		i = fp_putnbr_base(va_arg(args, unsigned int), 16, 1);
-	else if (c == 'u')
-		i = fp_putnbr_base(va_arg(args, unsigned int), 10, 0);
-	else if (c == 'p')
-		i = fp_putpointer(va_arg(args, void *));
-	return (i);
 }
 
 int	fp_putline(va_list args, char *line)
