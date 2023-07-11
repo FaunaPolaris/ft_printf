@@ -1,4 +1,4 @@
-NAME		=	libftprintf.a
+NAME		=	libftprintf
 CC		=	gcc
 CFLAGS		=	-g3 -Wall -Wextra -Werror
 LIBFT		=	libft
@@ -11,7 +11,7 @@ libft:
 	@make -C $(LIBFT)
 
 $(NAME):
-	@$(CC) $(CFLAGS) main.c ft_printf* -I$(LIBFT) -Iheader -L$(LIBFT) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) main.c ft_printf* fp* -I$(LIBFT) -Iheader -L$(LIBFT) -lft -o $(NAME)
 	@echo "$(YELLOW)compilation succes!$(SET_0)"
 
 clean:
@@ -19,7 +19,7 @@ clean:
 	@echo "$(YELLOW)clean complete$(SET_0)"
 
 fclean: clean
-	@rm printf
+	@rm -rf $(NAME)
 
 re: fclean all
 

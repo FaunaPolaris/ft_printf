@@ -6,7 +6,7 @@
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:08:46 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/07/09 14:38:06 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:17:53 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 int		fp_atoi(const char *nptr);
 char	*fp_itoa(int n);
 char	*fp_itoa_base(unsigned int nb, int base);
-void	fp_putchar_fd(char c, int fd);
-int		fp_putnbr_base(unsigned int nb, char *base_chars);
+int	fp_putchar_fd(char c, int fd);
+int		fp_putnbr_base(unsigned int nb, int base, int up);
 int		fp_putstr_and_len(char *s, int fd);
 int		fp_putnbr_and_len(int n, int fd);
 int		fp_putpointer(const void *ptr);

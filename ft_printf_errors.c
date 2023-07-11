@@ -6,13 +6,13 @@
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:52:30 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/07/03 17:31:42 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:14:23 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static int	fp_error_pf1(char *line)
+static int	error_pf1(char *line)
 {
 	int	i;
 
@@ -25,21 +25,24 @@ static int	fp_error_pf1(char *line)
 			return (0);
 		if (line[i] == 'u' || line[i] == 'p')
 			return (0);
+		if (line[i] == '%' && line[i + 1] == '%')
+			return (0);
+		i++;
 	}
 	return (1);
 }
 
-static int	fp_error_pf2(char *line)
+static int	error_pf2(char *line)
 {
 	int	len;
 
 	len = fp_strlen(line);
-	if (fp_strnstr(line, "-0", len) || fp_strnstr(line, "0-", len));
+	if (fp_strnstr(line, "-0", len) || fp_strnstr(line, "0-", len))
 	{
 		ft_printf("invalid combination of '0' and '-' flags");
 		return (1);
 	}
-	if (fp_strnstr(line, "-.", len) || fp_strnstr(line, ".-", len));
+	if (fp_strnstr(line, "-.", len) || fp_strnstr(line, ".-", len))
 	{
 		ft_printf("invalid combination of '.' and '-' flags");
 		return (1);
@@ -47,19 +50,39 @@ static int	fp_error_pf2(char *line)
 	return (0);
 }
 
-int	fp_printf_error(char *line);
+static int	check_for_error(char *line)
 {
 	char	*buffer;
 	int		i;
-	int		output;
 
 	i = 0;
-	output = 0;
-	while (fp_printf_find(line, &buffer, &i))
+	if (fp_printf_find(line, &buffer, &i))
 	{
-		if (fp_error_pf1(buffer))
-		output = 1;
-		free(buffer)
+		if (error_pf1(buffer) || error_pf2(buffer))
+		{
+			free(buffer);
+			return (1);
+		}
+		free(buffer);
 	}
-	return (output);
+	return (0);
+}
+
+int	fp_printf_error(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '%')
+		{
+			if (check_for_error(&line[i]))
+				return (1);
+			i += fp_find_len(&line[i]);
+		}
+		else
+			i++;
+	}
+	return (0);
 }

@@ -6,19 +6,32 @@
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:01:31 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/06/27 15:47:32 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:11:19 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	fp_putnbr_base(unsigned int nb, char *base_chars)
+static int	number_len(int nb, int output, int base)
 {
-	unsigned int	base_size;
+	while ((nb / base) > 0)
+	{
+		nb /= base;
+		output++;
+	}
+	return (output);
+}
 
-	base_size = (unsigned int)fp_strlen(base_chars);
-	if ((nb / base_size) > 0)
-		fp_putnbr_base(nb / base_size, base_chars);
-	fp_putchar_fd(base_chars[nb % base_size], 1);
-	return (fp_strlen(fp_itoa_base(nb, base_size)));
+int	fp_putnbr_base(unsigned int nb, int base, int up)
+{
+	if ((nb / base) > 0)
+		fp_putnbr_base(nb / base, base, up);
+	nb %= base;
+	if (nb < 10)
+		fp_putchar_fd('0' + nb, 1);
+	if (nb > 10 && up == 0)
+		fp_putchar_fd('a' + nb - 10, 1);
+	if (nb > 10 && up == 1)
+		fp_putchar_fd('A' + nb - 10, 1);
+	return (number_len(nb, 0, base));
 }

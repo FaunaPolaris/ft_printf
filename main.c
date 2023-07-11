@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "libftprintf.h"
 #include <stdio.h>
 #include <limits.h>
 
@@ -8,10 +8,11 @@ int	main(void)
 	unsigned int u = 2147483648;
 	void	*p = malloc(1);
 
+
 	ft_printf("You:\n\n");
 //	tests for i;
 	x = ft_printf("%%i test:%i, %i, %i, %i\nWith flags:\n\n Precision:\n Inplicit zero:%.i, explicit zero:%.0i, higher:%.12i, lower:%.5i\n",15, INT_MIN, 0xf, INT_MAX, 0, 0, 12, 123456);
-		y = ft_printf("zero padding:\n lower:%01i higher:%010i\nleft ajustment:\n lower:%-1i, higher:%-12i.\nfield width:\n lower%1i, higher:%12i\n",15, 0xf, 15, 0xf, 15, 0xf);
+	y = ft_printf("zero padding:\n lower:%01i higher:%010i\nleft ajustment:\n lower:%-1i, higher:%-12i.\nfield width:\n lower%1i, higher:%12i\n",15, 0xf, 15, 0xf, 15, 0xf);
 	ft_printf("characters printed:%i\n", x + y);
 	printf("\n\n");
 //	tests for d;
