@@ -6,7 +6,7 @@
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:57 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/07/11 15:17:03 by fpolaris         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:44:25 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int	fp_convert(char c, va_list args)
 		return (1);
 	}
 	else if (c == 'x')
-		i = fp_putnbr_base(va_arg(args, int), 16, 0);
+		i = fp_putnbr_base(va_arg(args, unsigned int), 16, 0);
 	else if (c == 'X')
-		i = fp_putnbr_base(va_arg(args, int), 16, 1);
+		i = fp_putnbr_base(va_arg(args, unsigned int), 16, 1);
 	else if (c == 'u')
-		i = fp_putnbr_base(va_arg(args, int), 10, 0);
+		i = fp_putnbr_base(va_arg(args, unsigned int), 10, 0);
 	else if (c == 'p')
 		i = fp_putpointer(va_arg(args, void *));
 	return (i);
