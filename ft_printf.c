@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+/*
 int	ft_printf(const char *line, ...)
 {
 	va_list	args;
@@ -25,7 +27,7 @@ int	ft_printf(const char *line, ...)
 	{
 		if (line[i] == '%')
 		{
-			output += fp_convert(line[i + 1]
+			output += fp_convert(line[i + 1], args);
 		}
 		else 
 			fp_putchar_fd(line[i], 1);
@@ -34,7 +36,7 @@ int	ft_printf(const char *line, ...)
 	va_end(args);
 	return (output);
 }
-
+*/
 int	fp_convert(char c, va_list args)
 {
 	int	i;
