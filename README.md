@@ -1,6 +1,11 @@
 # ft_printf
 
-## Version Story  
+## Version Story
+
+- 0.3.0  
+	- base structure sucks;  
+	- Makefile fix;  
+	- Compiling only bonus;  
 - 0.2.0  
 	- new base structure;  
 	- flags '0', '-' and '.' working;  
