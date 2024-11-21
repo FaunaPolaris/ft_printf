@@ -2,6 +2,10 @@
 
 ## Version Story
 
+- 0.3.1  
+	- tests being redone;  
+	- %i being tested;
+	known issues: negative values on %i not working.
 - 0.3.0  
 	- base structure sucks;  
 	- Makefile fix;  
